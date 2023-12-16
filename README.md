@@ -9,10 +9,10 @@ email: mihael.yuri.costa@gmail.com
 
 Versão das ferramentas:
 
-Bootstrap - 4.3.1
-Bootstrap Icons - 1.11.2
-JQuery - 3.3.1
-Chart.js - 4.4.1
+Bootstrap - 4.3.1;
+Bootstrap Icons - 1.11.2;
+JQuery - 3.3.1;
+Chart.js - 4.4.1;
 
 Instruções: 
 
