@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="/Dashboard/Dashboard.css">
+<div>
+  <h2 class="mb-4">Dashboard</h2>
+</div>
+<div class="parent">
+  <div class="notasEmitidas card">
+    <div>
+        <h6>Valor Total</h6>
+        <h3 id="somaTotal">0</h3>
+    </div>
+  </div>
+  <div class="notasSemCobranca card">
+    <div>
+        <h6>Sem Cobrança</h6>
+        <h3 id="somaSemCobranca">0</h3>
+    </div>
+  </div>
+  <div class="notasVencidas card">
+    <div>
+        <h6>Inadimplentes</h6>
+        <h3 id="somaVencidas">0</h3>
+    </div>
+  </div>
+  <div class="notasAVencer card">
+    <div>
+        <h6>A Vencer</h6>
+        <h3 id="somaAVencer">0</h3>
+    </div>
+  </div>
+  <div class="notasPagas card">
+    <div>
+        <h6>Pagas</h6>
+        <h3 id="somaPagas">0</h3>
+    </div>
+  </div>
+  <div class="graficoI card">
+    <h6>Inadimplência</h6>
+    <canvas  id="graficoI"></canvas>
+  </div>
+  <div class="graficoR card">
+    <h6>Recebimento</h6>
+    <canvas  id="graficoR"></canvas>
+  </div>
+  <div class="listaNotas card" style="justify-content: normal !important;">
+    
+      <div class="d-flex justify-content-between w-100">
+          <h4 class="mb-3">Notas</h2>  
+          <div class="mr-4"><button type="button" class="btn btn-principal" id="btnFiltro" data-bs-toggle="modal" data-bs-target="#formFiltro" onclick="exibeFiltro()">Filtro</button></div>      
+      </div>
+      <ul class="list-group list-group-horizontal font-weight-bold grid-header">
+        <li class="list-group-item">Nome</li>
+        <li class="list-group-item">Nota</li>
+        <li class="list-group-item">Dt. Emissão</li>
+        <li class="list-group-item">Dt. Cobrança</li>
+        <li class="list-group-item">Dt. Pagamento</li>
+        <li class="list-group-item">Valor</li>
+        <li class="list-group-item">Nota Fiscal</li>
+        <li class="list-group-item">Boleto Bancário</li>
+        <li class="list-group-item">Status</li>
+    </ul>
+    <div id="gridNotas">
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="formFiltro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formFiltro" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Filtro</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="slbEmissao mb-2" class="form-label">Data de Emissão</label>
+            <select id="slbEmissao" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <option value="" selected>Selecione um mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </div>
+          
+          <label for="slbCobranca">Data de Cobrança</label>
+          <select id="slbCobranca" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="" selected>Selecione um mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+          </select>
+          <label for="slbPagamento">Data de Pagamento</label>
+          <select id="slbPagamento" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="" selected>Selecione um mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+          </select>
+          <label for="slbStatus">Status</label>
+          <select id="slbStatus" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="" selected>Selecione um Status</option>
+              <option value="Emitida">Emitida</option>
+              <option value="Cobrança realizada">Cobrança Realizada</option>
+              <option value="Pagamento em atraso">Pagamento em Atraso</option>
+              <option value="Pagamento realizado">Pagamento Realizado</option>
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal" onclick="limpaFiltros()">Limpar Filtros</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="escondeFiltro()">Fechar</button>
+        <button type="button" class="btn btn-principal" onclick="filtraLista()">Filtrar</button>
+      </div>
+    </div>
+  </div>
+</div>
